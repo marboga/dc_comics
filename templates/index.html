@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css">
+	</head>
+	<body>
+		<h1>hey {{ session['name'] }}, you made it to the page about super heroes!</h1>
+		<table>
+			<thead>
+				<th>Name</th>
+				<th>Alias</th>
+				<th>Abilities</th>
+				<th>Nemesis</th>
+			</thead>
+			<tbody>
+				{% for hero in hero_list %}
+					<tr>
+						<td>{{ hero.name }}</td>
+						<td>{{ hero.hero_name }}</td>
+						<td>{{ hero.abilities }}</td>
+						<td>{{ hero.nemesis }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		{% with messages = get_flashed_messages() %}
+			{% for message in messages %}
+				<p class="red">{{ message }}</p>
+			{% endfor %}
+		{% endwith %}
+		<form class="new-hero" action="/new_hero_route" method="post">
+			<label for="name">Name:</label>
+			<input type="text" name="name" value="">
+			<label for="hero_name">Hero Name:</label>
+			<input type="text" name="hero_name" value="">
+			<label for="nemesis">Nemesis:</label>
+			<input type="text" name="nemesis" value="{{ session['nemesis'] }}">
+			<label for="abilities">Abilities (separate by commas):</label>
+			<textarea name="abilities" rows="8" cols="80"></textarea>
+			<label for=""></label>
+			<input class="button button-primary" type="submit" name="" value="New Superhero">
+		</form>
+	</body>
+</html>
